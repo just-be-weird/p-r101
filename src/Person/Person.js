@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Person.module.css';
+import styles from './_person.module.scss';
 const person = (porps) => {
     return (
         <div className={styles.person}>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Person from './Person/Person';
-import classes from './App.module.css';
+import classes from './_app.module.scss';
 
 class App extends Component {
   state = {
