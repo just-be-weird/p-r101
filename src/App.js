@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Person from './Person/Person';
-import './App.css';
+import classes from './_app.module.scss';
 
 class App extends Component {
   state = {
@@ -38,6 +38,8 @@ class App extends Component {
   render() {
     //best practice to show jsx conditionally 
     let people = null;
+    let btnClass = {};
+
     if (this.state.showPeople) {
       people = (
         <div>
@@ -49,11 +51,20 @@ class App extends Component {
                                                               />)) }          
         </div>
       );
+      btnClass = classes.Red;
+    }
+    //Pulling styles from css modules
+    const assignedClasses = [];
+    if (this.state.persons.length <= 2) {
+      assignedClasses.push(classes.red);
+    }
+    if (this.state.persons.length <= 1) {
+      assignedClasses.push(classes.bold);
     }
     return (
-      <div className="App">
-        <h1>Understanding React Syntax</h1>
-        <button onClick={this.showPeopleHandler}>Show People</button>
+      <div className={classes.App}>
+        <p className={assignedClasses.join(' ')}>Understanding React Syntax</p>
+        <button className={btnClass} onClick={this.showPeopleHandler}>Show People</button>
         { people }
       </div>
     );
