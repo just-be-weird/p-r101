@@ -3,4 +3,8 @@
     padding: 10px;
     margin: 10px auto;
     border: 1px solid #eee;
+
+    @media (min-width: 500px) {
+        width: 450px;
+    }
 }
