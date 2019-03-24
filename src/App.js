@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Person from './Person/Person';
 import classes from './_app.module.scss';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 
 class App extends Component {
   state = {
@@ -42,13 +43,16 @@ class App extends Component {
 
     if (this.state.showPeople) {
       people = (
-        <div>
-          { this.state.persons.map( (person,index) => (<Person key={person.id}
-                                                              age={person.age}
-                                                              changed={event => this.nameChangeHandler(event, person.id)}
-                                                              deleteName={() => this.deleteNameHandler(index)}
-                                                              name={person.name}
-                                                              />)) }          
+        <div>{/** key has to be used on outermost wrapping element and hence errorboundary is provided with key not person component*/}
+          { this.state.persons.map( (person,index) => (
+            <ErrorBoundary key={person.id}>
+              <Person 
+                      age={person.age}
+                      changed={event => this.nameChangeHandler(event, person.id)}
+                      deleteName={() => this.deleteNameHandler(index)}
+                      name={person.name}
+                      />
+          </ErrorBoundary>)) }          
         </div>
       );
       btnClass = classes.Red;
