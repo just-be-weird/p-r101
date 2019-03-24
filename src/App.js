@@ -38,17 +38,9 @@ class App extends Component {
   render() {
     //best practice to show jsx conditionally 
     let people = null;
-    //inline-style
-    const inline_style = {
-      backgroundColor: '#8bc34a',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid #9e9e9e',
-      padding: '8px',
-      cursor: 'pointer'
-    };
+    let btnClass = {};
+
     if (this.state.showPeople) {
-      inline_style.backgroundColor = '#f44336';
       people = (
         <div>
           { this.state.persons.map( (person,index) => (<Person key={person.id}
@@ -59,6 +51,7 @@ class App extends Component {
                                                               />)) }          
         </div>
       );
+      btnClass = classes.Red;
     }
     //Pulling styles from css modules
     const assignedClasses = [];
@@ -71,7 +64,7 @@ class App extends Component {
     return (
       <div className={classes.App}>
         <p className={assignedClasses.join(' ')}>Understanding React Syntax</p>
-        <button style={inline_style} onClick={this.showPeopleHandler}>Show People</button>
+        <button className={btnClass} onClick={this.showPeopleHandler}>Show People</button>
         { people }
       </div>
     );
