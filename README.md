@@ -13,3 +13,6 @@ class App extends Component {
 
 export default App;
 
+
+# To use css modules visit official page of create react app
+they suggest us to rename our css-modules filenames to be in format of [name].module.scss or [name].module.sass

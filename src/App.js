@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Person from './Person/Person';
-import './App.css';
+import classes from './App.module.css';
 
 class App extends Component {
   state = {
@@ -60,9 +60,17 @@ class App extends Component {
         </div>
       );
     }
+    //Pulling styles from css modules
+    const assignedClasses = [];
+    if (this.state.persons.length <= 2) {
+      assignedClasses.push(classes.red);
+    }
+    if (this.state.persons.length <= 1) {
+      assignedClasses.push(classes.bold);
+    }
     return (
-      <div className="App">
-        <h1>Understanding React Syntax</h1>
+      <div className={classes.App}>
+        <p className={assignedClasses.join(' ')}>Understanding React Syntax</p>
         <button style={inline_style} onClick={this.showPeopleHandler}>Show People</button>
         { people }
       </div>
