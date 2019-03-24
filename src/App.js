@@ -4,38 +4,57 @@ import './App.css';
 
 class App extends Component {
   state = {
-    person: [
-      {name: 'Jan', age: 20},
-      {name: 'April', age: 24}
-    ]
+    persons: [
+      { id: 'ashdkk' ,name: 'Jan', age: 20},
+      {id: 'aeiwjej', name: 'April', age: 24},
+      {id: 'yinkkej', name: 'June', age: 14}
+    ],
+    showPeople: false
   }
 
-  switchNameHandler = ()=> {
-    this.setState({
-      person: [
-        {name: 'June' , age: 24},
-        {name: 'April', age: 26}
-      ]
-    })
+  nameChangeHandler = (event, id)=> {
+    const personIndex = this.state.persons.findIndex( persn => persn.id === id );//find persons index
+    const person = {...this.state.persons[personIndex]};//get safly the targeted person
+    // const person = Object.assign({}, this.state.persons[personIndex]);
+    person.name = event.target.value;//change respected value
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({ persons: persons });
   }
 
-  nameChangeHandler = (event)=> {
-    this.setState({
-      person: [
-        {name: 'June' , age: 24},
-        {name: event.target.value , age: 26}
-      ]
-    })
+  showPeopleHandler = () => {
+    this.setState({ showPeople: !this.state.showPeople });
   }
   
+  deleteNameHandler = (index) => {
+    // const persons = this.state.persons;// here we are mutating the original data source which is not a best practice, instead use below method
+    // const persons = this.state.persons.slice();//will copy safly to persons or better use below
+    const persons = [...this.state.persons];
+    persons.splice(index, 1);//delete
+    this.setState({ persons: persons });
+  }
 
   render() {
+    //best practice to show jsx conditionally 
+    let people = null;
+    if (this.state.showPeople) {
+      people = (
+        <div>
+          { this.state.persons.map( (person,index) => (<Person key={person.id}
+                                                              age={person.age}
+                                                              changed={event => this.nameChangeHandler(event, person.id)}
+                                                              deleteName={() => this.deleteNameHandler(index)}
+                                                              name={person.name}
+                                                              />)) }          
+        </div>
+      );
+    }
     return (
       <div className="App">
         <h1>Understanding React Syntax</h1>
-        <button onClick={this.switchNameHandler}>Switch Name</button>
-        <Person name={this.state.person[0].name} switchNameHandler={this.switchNameHandler} age={this.state.person[0].age}> children properties </Person>
-        <Person  name={this.state.person[1].name} changed={this.nameChangeHandler} age={this.state.person[1].age}/>
+        <button onClick={this.showPeopleHandler}>Show People</button>
+        { people }
       </div>
     );
   }
