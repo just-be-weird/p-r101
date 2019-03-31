@@ -2,6 +2,9 @@ import React, { PureComponent } from 'react';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
+//creating Global context using reat.createContext
+export const AuthContext = React.createContext(false);
+
 class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -70,7 +73,7 @@ class App extends PureComponent {
                   persons={this.state.persons}
                   clicked={this.deleteNameHandler}
                   changed={this.nameChangeHandler}
-                  isAuthenticated={this.state.authenticated}
+                  // isAuthenticated={this.state.authenticated}
                 />
     }
     
@@ -82,7 +85,9 @@ class App extends PureComponent {
           clicked={this.showPeopleHandler}
           login={this.loginHandler}
         />
-        { people }
+        <AuthContext.Provider value={this.state.authenticated}>
+          { people }
+        </AuthContext.Provider>
       </div>
     );
   }
