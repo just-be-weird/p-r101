@@ -11,16 +11,17 @@ class App extends PureComponent {
         {id: 'aeiwjej', name: 'April', age: 24},
         {id: 'yinkkej', name: 'June', age: 14}
       ],
-      showPeople: false
+      showPeople: false,
+      clickCounter: 0
     }
-    console.log('constructor',props);
+    // console.log('constructor',props);
   }
-  componentWillMount() {
-    console.log('App.js comwillmount');
-  }
-  componentDidMount() {
-    console.log('App.js comdidmount');
-  }
+  // componentWillMount() {
+  //   console.log('App.js comwillmount');
+  // }
+  // componentDidMount() {
+  //   console.log('App.js comdidmount');
+  // }
 
   
 
@@ -36,7 +37,14 @@ class App extends PureComponent {
   }
 
   showPeopleHandler = () => {
-    this.setState({ showPeople: !this.state.showPeople });
+    //using setState correctly if we are using previous states value to set new value for state
+    // this.setState({ showPeople: !this.state.showPeople });
+    this.setState((prevState, props) => {
+      return {
+        showPeople: !this.state.showPeople,
+        clickCounter: prevState.clickCounter+1
+      }
+    })
   }
   
   deleteNameHandler = (index) => {
@@ -48,7 +56,7 @@ class App extends PureComponent {
   }
 
   render() {
-    console.log('render app')
+    // console.log('render app')
     //best practice to show jsx conditionally 
     let people = null;
 

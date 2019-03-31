@@ -1,23 +1,42 @@
-import React, {PureComponent} from 'react';
+import React, { Component } from 'react';
 import styles from './_person.module.scss';
-class Person extends PureComponent {
+import PropTypes from 'prop-types';
+import withClass from '../../../hoc/withClass';
+import Aux from '../../../hoc/Aux';
+
+class Person extends Component {
     constructor(props) {
         super(props);
-        console.log('Person.js constructor',props);
-      }
-      componentWillMount() {
-        console.log('Person.js comwillmount');
-      }
-      componentDidMount() {
-        console.log('Person.js comdidmount');
-    } 
+        //setting up reference in react 16.4 and upper
+        this.inputElement = React.createRef();
+    }
+    //   componentWillMount() {
+    //     console.log('Person.js comwillmount');
+    //   }
+    componentDidMount() {
+        if (this.props.position === 0) {
+            // this.inputElement.focus();// for react version 16.3 and below
+            this.inputElement.current.focus();
+        }
+    }
+
+    focus() {
+        this.inputElement.current.focus();
+    }
+
     render() {
-        console.log('Person.js render');
+        // console.log('Person.js render');
         return (
-            <div className={styles.person}>
+            <Aux>
                 <p onClick={this.props.click} >Hi I'm {this.props.name}, I'm {this.props.age}</p>
-                <input type="text" onChange={this.props.changed} value={this.props.name}/>
-            </div>
+                <input 
+                    type="text" 
+                    onChange={this.props.changed}
+                    value={this.props.name}
+                    // ref={( input )=> { this.inputElement = input }}// for react version 16.3 and below
+                    ref={this.inputElement}
+                    />
+            </Aux>
         );
     }
 }
@@ -29,5 +48,11 @@ class Person extends PureComponent {
 //         </div>
 //     )
 // }
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func
+}
 
-export default Person;
+export default withClass(Person, styles.person);

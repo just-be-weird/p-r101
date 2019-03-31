@@ -13,7 +13,7 @@ const cockpit = (props) => {
     if (props.persons.length <= 1) {
       assignedClasses.push(classes.bold);
     }
-    console.log(">>",classes);
+    // console.log(">>",classes);
     
     props.showPPL ? btnClass = [classes['Cockpit-button'], classes['Red']].join(' ') : btnClass = [classes['Cockpit-button']].join(' ');
 
