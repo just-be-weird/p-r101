@@ -12,7 +12,8 @@ class App extends PureComponent {
         {id: 'yinkkej', name: 'June', age: 14}
       ],
       showPeople: false,
-      clickCounter: 0
+      clickCounter: 0,
+      authenticated: false
     }
     // console.log('constructor',props);
   }
@@ -55,6 +56,10 @@ class App extends PureComponent {
     this.setState({ persons: persons });
   }
 
+  loginHandler = () => {
+    this.setState(()=> ({authenticated: true}));
+  }
+
   render() {
     // console.log('render app')
     //best practice to show jsx conditionally 
@@ -65,6 +70,7 @@ class App extends PureComponent {
                   persons={this.state.persons}
                   clicked={this.deleteNameHandler}
                   changed={this.nameChangeHandler}
+                  isAuthenticated={this.state.authenticated}
                 />
     }
     
@@ -74,6 +80,7 @@ class App extends PureComponent {
           showPPL={this.state.showPeople}
           persons={this.state.persons}
           clicked={this.showPeopleHandler}
+          login={this.loginHandler}
         />
         { people }
       </div>

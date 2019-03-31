@@ -21,6 +21,7 @@ const cockpit = (props) => {
         <Aux>
           <p className={assignedClasses.join(' ')}>Understanding React Syntax</p>
           <button className={btnClass} onClick={props.clicked}>Show People</button>
+          <button onClick={props.login}>Login</button>
         </Aux>
     );
 }

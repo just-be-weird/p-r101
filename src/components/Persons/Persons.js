@@ -30,6 +30,7 @@ class Persons extends PureComponent {
             name={person.name}
             position={index}
             ref={this.lastPersonRef}//ref will be for last person as code is in map and on each iteration previous ref will be overriden
+            authenticated={this.props.isAuthenticated}
             />));
     }
 };
